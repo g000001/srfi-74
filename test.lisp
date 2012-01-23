@@ -28,8 +28,8 @@
 ; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ; SOFTWARE.
 
-(defvar *correct-count* 0)
-(defvar *failed-count* 0)
+(defparameter *correct-count* 0)
+(defparameter *failed-count* 0)
 (defvar b1)
 (defvar b2)
 (defvar b3)

@@ -36,7 +36,10 @@
     ((endianness :little) *endianness/little*)
     ((endianness :big) *endianness/big*)
     ;; change this to the endianness of your architecture
-    ((endianness :native) *endianness/big*)))
+    ((endianness :native)
+     (if (member :little-endian cl:*features*)
+         *endianness/little*
+         *endianness/big*))))
 
 (define-function blob? #'u8vector?)
 
