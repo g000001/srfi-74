@@ -1,4 +1,8 @@
-* SRFI-74: Octet-Addressed Binary Blocks
+# SRFI 74 for CL: Octet-Addressed Binary Blocks
+
+* https://srfi.schemers.org/srfi-74
+* License: Unlicense
+
 - Copyright (C) Michael Sperber (2005). All Rights Reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining

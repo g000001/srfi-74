@@ -1,6 +1,7 @@
-(cl:in-package :srfi-74.internal)
+(cl:in-package "https://github.com/g000001/srfi-74#internals")
 
-(progn
+
+(eval-when (:compile-toplevel :load-toplevel :execute)
   (setf (fdefinition 'eq?) #'eq)
   (setf (fdefinition 'integer?) #'integerp)
   (setf (fdefinition 'list?) #'listp)
@@ -20,43 +21,56 @@
   (setf (fdefinition 'remainder)  #'rem)
   )
 
+
 (defmacro set! (var val)
   `(setq ,var ,val))
 
+
 (declaim (inline list-tail vector-set! list-ref vector->list list->vector
                  quotient))
+
+
 (defun quotient (x y)
   (values (truncate x y)))
+
 
 (defun list-tail (list k)
   (nthcdr k list))
 
+
 (defun list-ref (list k)
   (nth k list))
+
 
 (defun vector-set! (vec index val)
   (setf (aref vec index) val))
 
+
 (defun vector->list (vec)
   (coerce vec 'list))
+
 
 (defun list->vector (list)
   (coerce list 'vector))
 
-(defun to-proper-lambda-list (list)
-  (typecase list
-    (list (if (tailp () list)
-              list
+
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defun to-proper-lambda-list (list)
+    (typecase list
+      (list (if (tailp () list)
+                list
               (cl:let ((last (last list)))
                 `(,@(butlast list)
-                      ,(car last)
-                    cl:&rest
-                    ,(cdr last)))))
-    (symbol `(cl:&rest ,list))))
+                  ,(car last)
+                  cl:&rest
+                  ,(cdr last)))))
+      (symbol `(cl:&rest ,list)))))
+
 
 (defmacro lambda (args &rest body)
   `(cl:lambda ,(to-proper-lambda-list args)
      ,@body))
+
 
 (defmacro letrec ((&rest binds) &body body)
   `(let (,@(mapcar (cl:lambda (x)
@@ -84,31 +98,48 @@
          (setf (fdefinition ',name-args)
                ,(car body)))))
 
+
 (declaim (inline vector-ref))
+
+
 (defun vector-ref (vec k)
   (svref vec k))
 
+
 (declaim (inline modulo))
+
+
 (defun modulo (x y)
   (mod x y))
+
 
 (defmacro begin (&body body)
   `(progn ,@body))
 
+
 (declaim (inline make-vector))
+
+
 (defun make-vector (size &optional (init 0))
   (cl:make-array size                   ;***
                  :initial-element init
                  :adjustable nil
                  :fill-pointer nil))
 
+
 (declaim (inline string-append))
+
+
 (defun string-append (&rest strings)
   (format nil "~{~A~}" strings))
 
+
 (declaim (inline number->string))
+
+
 (defun number->string (num)
   (write-to-string num))
+
 
 (defmacro dolex ((&rest varlist) endlist &body body)
   (let* ((vars (mapcar (lambda (v)
@@ -130,4 +161,5 @@
                         varlist )))
     `(cl:do ,binds ,endlist ,@body) ))
 
-;;; eof
+
+;;; *EOF*

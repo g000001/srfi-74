@@ -1,6 +1,6 @@
 ;;;; srfi-74.lisp
 
-(cl:in-package :srfi-74.internal)
+(cl:in-package "https://github.com/g000001/srfi-74#internals")
 
 ; Octet-addressed binary objects
 
@@ -215,6 +215,7 @@
   (lambda (size endness b)
     (let ((ref (cut blob-ref size endness b <>))
 	  (length (blob-length b)))
+      (declare (function ref))
       (let loop ((i 0) (r '()))
 	(if (>= i length)
 	    (reverse r)
@@ -228,6 +229,7 @@
   (lambda (size endness l)
     (let* ((blob (make-blob (* size (length l))))
 	   (set! (cut blob-set! size endness blob <> <>)))
+      (declare (function set!))
       (let loop ((i 0) (l l))
 	(if (null? l)
 	    blob

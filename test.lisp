@@ -1,8 +1,8 @@
-(cl:in-package :srfi-74.internal)
+(cl:in-package "https://github.com/g000001/srfi-74#internals")
 
-(def-suite srfi-74)
 
-(in-suite srfi-74)
+(def-suite* srfi-74)
+
 
 ; Examples for octet-addressed binary objects
 
@@ -29,11 +29,22 @@
 ; SOFTWARE.
 
 (defparameter *correct-count* 0)
+
+
 (defparameter *failed-count* 0)
+
+
 (defvar b1)
+
+
 (defvar b2)
+
+
 (defvar b3)
+
+
 (defvar b4)
+
 
 (define-syntax check
   (syntax-rules (=>)
@@ -63,7 +74,9 @@
                 (newline)
                 nil ))))))))
 
+
 (setq b1 (make-blob 16))
+
 
 (test blob
   ;;
@@ -182,12 +195,26 @@
 
   )
 
-(newline)
-(display "correct tests: ")
-(display *correct-count*)
-(newline)
-(display "failed tests: ")
-(display *failed-count*)
+
 (newline)
 
-;;; eof
+
+(display "correct tests: ")
+
+
+(display *correct-count*)
+
+
+(newline)
+
+
+(display "failed tests: ")
+
+
+(display *failed-count*)
+
+
+(newline)
+
+
+;;; *EOF*
